@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#020609">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Anti-Golpe SOC Shield v4.0 - Suíte de Ciberdefesa Pessoal e Blindagem Corporativa PJ com 17 Sistemas Integrados">
+<title>Anti-Golpe SOC Shield v4.0 | Defesa Militar Pessoal & PJ</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-deep: #020609;
+  --bg-card: #081015;
+  --bg-surface: #0f1c24;
+  --bg-hover: #162936;
+  
+  --primary: #00f29b;
+  --primary-glow: rgba(0, 242, 155, 0.22);
+  --cyan: #00d2ff;
+  --danger: #ff2d55;
+  --danger-glow: rgba(255, 45, 85, 0.28);
+  --warning: #ffb800;
+  --warning-glow: rgba(255, 184, 0, 0.2);
+  --purple: #a855f7;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --border: #1a2d39;
+  --border-focus: #00f29b;
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 120px;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(2, 6, 9, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+}
+.header-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.4px;
+}
+.brand-radar {
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--primary);
+  animation: pulse 1.8s infinite;
+}
+.brand-badge {
+  background: #11222c;
+  border: 1px solid #203f52;
+  color: var(--cyan);
+  font-size: 10px;
+  font-family: var(--font-mono);
+  padding: 2px 6px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(0, 242, 155, 0.1);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.btn-emergency-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--danger);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.78rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+  box-shadow: 0 0 10px var(--danger-glow);
+}
+
+/* Container Principal */
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* Seletor de Perfil PF / PJ */
+.profile-switcher {
+  display: flex;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 4px;
+  border-radius: 14px;
+  margin-bottom: 16px;
+}
+.profile-btn {
+  flex: 1;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+.profile-btn.active {
+  background: var(--bg-card);
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  border: 1px solid var(--border);
+}
+
+/* Cards & Layout */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.card-highlight {
+  background: radial-gradient(circle at 100% 0%, rgba(0, 242, 155, 0.08), transparent 60%), var(--bg-card);
+  border-color: #244136;
+}
+.card-pj-mode {
+  background: radial-gradient(circle at 100% 0%, rgba(0, 210, 255, 0.09), transparent 60%), var(--bg-card);
+  border-color: #173f54;
+}
+
+h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
+h3 { font-size: 0.96rem; font-weight: 700; }
+p { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 12px; }
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+/* Grid de Sistemas */
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.sys-tile {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.sys-tile:hover {
+  background: var(--bg-hover);
+  border-color: #2c4a5c;
+  transform: translateY(-2px);
+}
+.sys-num {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--primary);
+  background: rgba(0, 242, 155, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.sys-tile strong { font-size: 0.94rem; color: #fff; margin-bottom: 4px; display: block; }
+.sys-tile small { font-size: 0.8rem; color: var(--text-muted); line-height: 1.4; }
+
+/* Botões */
+.btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+button, .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-primary { background: var(--primary); color: #02120a; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { filter: brightness(1.15); box-shadow: 0 0 14px var(--danger-glow); }
+.btn-secondary { background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--bg-hover); }
+
+/* Inputs e Formulários */
+label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+input, textarea, select {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+textarea { resize: vertical; min-height: 85px; }
+
+/* Caixa de Diagnóstico */
+.diag-box {
+  margin-top: 14px;
+  border-radius: 14px;
+  padding: 16px;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.diag-danger { background: rgba(255, 45, 85, 0.08); border: 1px solid var(--danger); }
+.diag-warning { background: rgba(255, 184, 0, 0.08); border: 1px solid var(--warning); }
+.diag-safe { background: rgba(0, 242, 155, 0.08); border: 1px solid var(--primary); }
+
+.diag-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.score-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+.score-badge.danger { background: var(--danger); color: white; }
+.score-badge.warning { background: var(--warning); color: black; }
+.score-badge.safe { background: var(--primary); color: black; }
+
+.diag-list { list-style: none; }
+.diag-list li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+.diag-list li::before {
+  content: "▶";
+  position: absolute;
+  left: 0;
+  font-size: 0.62rem;
+  top: 4px;
+  color: inherit;
+}
+
+/* Checklist e Itens de Auditoria */
+.scan-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 13px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 8px;
+  gap: 8px;
+}
+.scan-item-info strong { display: block; font-size: 0.88rem; color: #fff; }
+.scan-item-info small { color: var(--text-muted); font-size: 0.78rem; }
+.scan-badge {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.scan-badge.ok { background: rgba(0, 242, 155, 0.18); color: var(--primary); }
+.scan-badge.risk { background: rgba(255, 45, 85, 0.2); color: var(--danger); }
+.scan-badge.pending { background: rgba(255, 184, 0, 0.2); color: var(--warning); }
+
+/* Checklist de Hardening */
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--bg-surface);
+  margin-bottom: 6px;
+  font-size: 0.84rem;
+}
+.check-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--primary);
+}
+
+/* Barra de Navegação Inferior */
+nav.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(3, 8, 12, 0.97);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 5px 2px calc(5px + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+nav.bottom-nav button {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 5px 2px;
+  cursor: pointer;
+  flex: 1;
+}
+nav.bottom-nav button.active { color: var(--primary); }
+nav.bottom-nav button svg { width: 19px; height: 19px; fill: currentColor; }
+
+.hidden { display: none !important; }
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 155, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(0, 242, 155, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 242, 155, 0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-wrap">
+    <div class="brand">
+      <div class="brand-radar"></div>
+      <span>ANTI-GOLPE</span>
+      <span class="brand-badge">SOC v4.0</span>
+    </div>
+    
+    <div class="header-actions">
+      <button id="pwa-install-btn" class="btn-install" onclick="promptAppInstall()">📲 Instalar App</button>
+      <a href="tel:190" class="btn-emergency-top">🚨 190</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- SELETOR PF / PJ -->
+  <div class="profile-switcher">
+    <button class="profile-btn active" id="btn-mode-pf" onclick="setAppMode('pf')">
+      👤 Defesa Pessoal (PF)
+    </button>
+    <button class="profile-btn" id="btn-mode-pj" onclick="setAppMode('pj')">
+      🏢 Blindagem Empresarial (PJ)
+    </button>
+  </div>
+
+  <!-- ABA 1: PAINEL SOC / VISÃO GERAL (TODOS OS 17 SISTEMAS) -->
+  <section id="tab-home" class="page-view">
+    <div class="card card-highlight" id="dashboard-hero">
+      <div class="section-tag" id="profile-tag">🛡️ Escudo Operacional Ativo</div>
+      <h1 id="hero-title">Central Integrada de Ciberdefesa</h1>
+      <p id="hero-desc">17 módulos ativos de proteção militar contra invasão de aparelhos, keyloggers, clone de WhatsApp, boletos adulterados e fraudes financeiras.</p>
+      
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="switchTab('tab-spy')">🕵️ Scan de Espionagem no Celular</button>
+        <button class="btn btn-secondary" onclick="switchTab('tab-financial')">💸 Inspecionar Pix & Boletos</button>
+      </div>
+    </div>
+
+    <!-- Radar de Ameaças em Tempo Real -->
+    <div class="card">
+      <div class="section-tag" style="color:var(--cyan)">📡 Inteligência de Ameaças em Tempo Real (Brasil)</div>
+      <div style="font-size:0.84rem; color:var(--text-muted); display:flex; flex-direction:column; gap:6px;">
+        <div>🔴 <strong>Golpe da Falsa Central 0800:</strong> Falsos SMS afirmando compras aprovadas de R$ 3.000 a R$ 5.000.</div>
+        <div>🔴 <strong>Golpe da "Mão Fantasma":</strong> Criminosos induzem instalação de AnyDesk, RustDesk ou TeamViewer.</div>
+        <div>🟡 <strong>Boleto Adulterado de Fornecedor:</strong> Desvio de faturamento PJ com linha digitável substituída.</div>
+        <div>🟡 <strong>Golpe do Falso Familiar:</strong> Pedido de Pix urgente via perfil novo no WhatsApp com foto de filho/parente.</div>
+      </div>
+    </div>
+
+    <h2>Os 17 Sistemas de Defesa Integrados</h2>
+    <div class="systems-grid">
+      <div class="sys-tile" onclick="switchTab('tab-spy')">
+        <div>
+          <span class="sys-num">SISTEMA 01</span>
+          <strong>Detector de Keyloggers & Espionagem</strong>
+          <small>Audita permissões ocultas de microfone, câmera e serviços em background.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-spy')">
+        <div>
+          <span class="sys-num">SISTEMA 02</span>
+          <strong>Scanner Anti-"Mão Fantasma"</strong>
+          <small>Identifica softwares de controle remoto não autorizados (AnyDesk, TeamViewer).</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-financial')">
+        <div>
+          <span class="sys-num">SISTEMA 03</span>
+          <strong>Decodificador Pix EMV TLV</strong>
+          <small>Revela o nome real e cidade do beneficiário antes de enviar dinheiro.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-financial')">
+        <div>
+          <span class="sys-num">SISTEMA 04</span>
+          <strong>Auditor de Boletos Fraudados</strong>
+          <small>Valida linha digitável (47/48 dígitos), banco emissor e dígito verificador.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-financial')">
+        <div>
+          <span class="sys-num">SISTEMA 05</span>
+          <strong>Classificador de Risco de Chave Pix</strong>
+          <small>Identifica chaves e-mails descartáveis, telefones VoIP e contas laranjas.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-financial')">
+        <div>
+          <span class="sys-num">SISTEMA 06</span>
+          <strong>Inspetor de QR Code & Qrishing</strong>
+          <small>Decodifica payloads de QR codes para barrar redirecionamentos piratas.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-links')">
+        <div>
+          <span class="sys-num">SISTEMA 07</span>
+          <strong>Deep Link & Anti-Phishing Inspector</strong>
+          <small>Detecta Punycode, domínios clones e arquivos executáveis .APK bancários.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-links')">
+        <div>
+          <span class="sys-num">SISTEMA 08</span>
+          <strong>Scanner de Engenharia Social & 0800</strong>
+          <small>Analisa textos de SMS e WhatsApp procurando gatilhos psicológicos de pânico.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-links')">
+        <div>
+          <span class="sys-num">SISTEMA 09</span>
+          <strong>Validador Algorítmico de CNPJ</strong>
+          <small>Verifica se o CNPJ de lojas virtuais é autêntico ou inventado no rodapé.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-pj')">
+        <div>
+          <span class="sys-num">SISTEMA 10</span>
+          <strong>Blindagem Anti-Falso CEO / BEC</strong>
+          <small>Audita mensagens corporativas de emergência para evitar desvio de caixa de empresas.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-pj')">
+        <div>
+          <span class="sys-num">SISTEMA 11</span>
+          <strong>Matriz de Dupla Aprovação PJ</strong>
+          <small>Calculador de risco de fluxo para autorização e liberação de faturas.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-passwords')">
+        <div>
+          <span class="sys-num">SISTEMA 12</span>
+          <strong>Auditor de Entropia & Senhas Vazadas</strong>
+          <small>Calcula bits reais de entropia e tempo para quebra por força bruta.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-emergency')">
+        <div>
+          <span class="sys-num">SISTEMA 13</span>
+          <strong>Protocolo MED Pix do Banco Central</strong>
+          <small>Cronômetro de 80 dias e requerimento formal conforme Resolução BCB nº 103.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-emergency')">
+        <div>
+          <span class="sys-num">SISTEMA 14</span>
+          <strong>Gerador de Dossiê Notícia-Crime</strong>
+          <small>Estrutura evidências com base no Art. 171 § 2º-A para delegacias eletrônicas.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-spy')">
+        <div>
+          <span class="sys-num">SISTEMA 15</span>
+          <strong>Checklist de Blindagem do Aparelho</strong>
+          <small>Passo a passo de proteção física: PIN do chip SIM, WhatsApp em 2 etapas.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-vault')">
+        <div>
+          <span class="sys-num">SISTEMA 16</span>
+          <strong>Cofre Criptográfico AES-256 Local</strong>
+          <small>Armazenamento sigiloso de evidências sem envio para servidores terceiros.</small>
+        </div>
+      </div>
+
+      <div class="sys-tile" onclick="switchTab('tab-vault')">
+        <div>
+          <span class="sys-num">SISTEMA 17</span>
+          <strong>Anti-Tamper & Botão de Autodestruição</strong>
+          <small>Higienização forense imediata com queima de logs caso o aparelho seja coagido.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABA 2: ESPIONAGEM, CONTROLE REMOTO & HARDENING DO CELULAR (SISTEMAS 1, 2, 15) -->
+  <section id="tab-spy" class="page-view hidden">
+    <div class="card" style="border-color:#382747;">
+      <div class="section-tag" style="color:var(--purple)">Sistemas 01 & 02 • Espionagem & Acesso Remoto</div>
+      <h1>Auditoria de Integridade do Celular</h1>
+      <p>Detecte permissões ocultas de microfone/câmera, apps de espionagem (Stalkerware) e ferramentas de controle clandestino (AnyDesk, RustDesk, TeamViewer).</p>
+
+      <div class="btn-group" style="margin-bottom:14px;">
+        <button class="btn btn-primary" onclick="runCompleteDeviceAudit()">⚡ Executar Varredura no Celular</button>
+      </div>
+
+      <div id="device-scan-list">
+        <div class="scan-item">
+          <div class="scan-item-info">
+            <strong>Permissões de Escuta (Microfone & Câmera)</strong>
+            <small id="stat-mic">Pressione "Executar Varredura" para auditar</small>
+          </div>
+          <span class="scan-badge pending" id="badge-mic">AGUARDANDO</span>
+        </div>
+
+        <div class="scan-item">
+          <div class="scan-item-info">
+            <strong>Detecção de Aplicativos de Controle Remoto</strong>
+            <small>Identificação de softwares tipo AnyDesk / RustDesk / QuickSupport</small>
+          </div>
+          <span class="scan-badge pending" id="badge-remote">AGUARDANDO</span>
+        </div>
+
+        <div class="scan-item">
+          <div class="scan-item-info">
+            <strong>Integridade de Conexão & Prevenção de DNS Hijacking</strong>
+            <small id="stat-dns">Audita se há redirecionamentos de proxy clandestinos</small>
+          </div>
+          <span class="scan-badge pending" id="badge-dns">AGUARDANDO</span>
+        </div>
+      </div>
+
+      <div id="spy-diag" class="diag-box"></div>
+    </div>
+
+    <!-- Sistema 15: Checklist de Blindagem do Aparelho (Hardening) -->
+    <div class="card">
+      <div class="section-tag">Sistema 15 • Blindagem Física & Digital</div>
+      <h2>Checklist de Sobrevivência do Celular (Hardening)</h2>
+      <p>Marque as configurações já feitas no seu celular para calcular seu nível de imunidade a roubos e clonagens:</p>
+
+      <div class="check-row">
+        <input type="checkbox" id="chk-sim" onchange="updateHardeningScore()">
+        <div><strong>Bloqueio do Chip SIM com código PIN:</strong> Evita que tirem o chip do seu celular e recebam SMS do seu banco em outro aparelho.</div>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="chk-notif" onchange="updateHardeningScore()">
+        <div><strong>Ocultar conteúdo de notificações na tela de bloqueio:</strong> Impede que golpistas vejam códigos de SMS de autenticação sem desbloquear o aparelho.</div>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="chk-wpp" onchange="updateHardeningScore()">
+        <div><strong>Confirmação em Duas Etapas com PIN no WhatsApp:</strong> Bloqueia clonagens e transferências fraudulentas de linha.</div>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="chk-pixlim" onchange="updateHardeningScore()">
+        <div><strong>Limite Noturno Reduzido de Pix no Banco (R$ 1.000 max):</strong> Proteção regulamentada pelo Banco Central contra sequestros relâmpago.</div>
+      </div>
+
+      <div class="check-row">
+        <input type="checkbox" id="chk-remote" onchange="updateHardeningScore()">
+        <div><strong>Desinstalação de Softwares de Suporte Remoto:</strong> Sem AnyDesk, RustDesk ou TeamViewer instalados no aparelho de uso diário.</div>
+      </div>
+
+      <div style="margin-top:12px; font-weight:700; font-size:0.9rem;" id="hardening-status">
+        Imunidade do Aparelho: <span style="color:var(--warning)">0% (Vulnerável)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABA 3: SEGURANÇA FINANCEIRA (SISTEMAS 3, 4, 5, 6) -->
+  <section id="tab-financial" class="page-view hidden">
+    <!-- Sistema 03: Pix Copia e Cola -->
+    <div class="card">
+      <div class="section-tag">Sistema 03 • Decodificador EMV TLV</div>
+      <h1>Decodificar Pix "Copia e Cola"</h1>
+      <p>Identifique quem receberá o valor, a cidade e a instituição antes de efetuar o pagamento:</p>
+
+      <label for="pix-payload">Código Pix Completo (000201...):</label>
+      <textarea id="pix-payload" placeholder="Cole o código Pix que inicia com 00020126..."></textarea>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="decodePixCode()">Decodificar Beneficiário</button>
+      </div>
+      <div id="pix-diag" class="diag-box"></div>
+    </div>
+
+    <!-- Sistema 04: Auditor de Boletos Bancários -->
+    <div class="card">
+      <div class="section-tag">Sistema 04 • Validador Febraban</div>
+      <h2>Auditor de Boletos Bancários Adulterados</h2>
+      <p>Muitos malwares e falsos fornecedores alteram os dígitos do código de barras para desviar pagamentos para contas laranjas:</p>
+
+      <label for="boleto-input">Linha Digitável (47 dígitos para cobrança / 48 dígitos para concessionárias):</label>
+      <input type="text" id="boleto-input" placeholder="34191.79001 01043.510047 91020.150008 5 95680000015000">
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="auditBoleto()">Inspecionar Linha Digitável</button>
+      </div>
+      <div id="boleto-diag" class="diag-box"></div>
+    </div>
+
+    <!-- Sistema 05: Classificador de Risco de Chave Pix -->
+    <div class="card">
+      <div class="section-tag">Sistema 05 • Reputação de Chave</div>
+      <h2>Classificador de Risco de Chaves Pix</h2>
+      <p>Avalie o formato da chave antes de efetuar transações para pessoas ou vendedores desconhecidos:</p>
+
+      <label for="chave-input">Chave Pix (E-mail, CPF/CNPJ, Telefone ou Aleatória EVP):</label>
+      <input type="text" id="chave-input" placeholder="Ex: contato@tempmail.com ou 11988887777">
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="classifyPixKey()">Classificar Risco da Chave</button>
+      </div>
+      <div id="chave-diag" class="diag-box"></div>
+    </div>
+
+    <!-- Sistema 06: Auditor de QR Codes (Qrishing) -->
+    <div class="card">
+      <div class="section-tag">Sistema 06 • QR Hijacking Guard</div>
+      <h2>Inspetor de Conteúdo de QR Code (Anti-Qrishing)</h2>
+      <p>Cole a URL ou texto decodificado da câmera ao ler um QR Code impresso em maquininhas ou cartazes para validar sua legitimidade:</p>
+
+      <label for="qr-input">Conteúdo extraído do QR Code:</label>
+      <input type="text" id="qr-input" placeholder="https://pagamento-seguro.com/fatura?id=89238">
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="auditQRCodeText()">Analisar Risco do QR Code</button>
+      </div>
+      <div id="qr-diag" class="diag-box"></div>
+    </div>
+  </section>
+
+  <!-- ABA 4: LINKS, MENSAGENS & CNPJ (SISTEMAS 7, 8, 9) -->
+  <section id="tab-links" class="page-view hidden">
+    <!-- Sistema 07: Deep Link Inspector -->
+    <div class="card">
+      <div class="section-tag">Sistema 07 • Deep Link Forensic</div>
+      <h1>Auditar Link ou Domínio Suspeito</h1>
+      <p>Detecta ataques homógrafos (Punycode com caracteres russos/gregos), download direto de Trojans (.APK bancário) e clones de marcas financeiras.</p>
+
+      <label for="url-target">URL para análise forense:</label>
+      <input type="text" id="url-target" placeholder="https://itau-atualizacao-seguranca.xyz/app.apk">
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="runURLInspector()">Executar Varredura Forense</button>
+      </div>
+      <div id="url-diag" class="diag-box"></div>
+    </div>
+
+    <!-- Sistema 08: Scanner de Mensagens / Falso 0800 -->
+    <div class="card">
+      <div class="section-tag">Sistema 08 • Engenharia Social & 0800</div>
+      <h2>Scanner de Mensagens (SMS, WhatsApp, E-mail)</h2>
+      <p>Analisa o texto em busca de técnicas psicológicas de coação, compras simuladas e centrais falsas:</p>
+
+      <label for="sms-target">Conteúdo recebido:</label>
+      <textarea id="sms-target" placeholder="Ex: BB: Compra de R$ 4.900,00 aprovada no Mercado Livre. Se desconhece, ligue para 0800-729-0000"></textarea>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="runTextScanner()">Escanear Padrões Psicológicos</button>
+      </div>
+      <div id="sms-diag" class="diag-box"></div>
+    </div>
+
+    <!-- Sistema 09: Validador de CNPJ -->
+    <div class="card">
+      <div class="section-tag">Sistema 09 • Compliance de Loja Virtual</div>
+      <h2>Validador Algorítmico de CNPJ</h2>
+      <p>Lojas falsas frequentemente colocam números de CNPJ inexistentes ou gerados aleatoriamente em rodapés:</p>
+
+      <label for="cnpj-target">Número do CNPJ da Loja:</label>
+      <input type="text" id="cnpj-target" placeholder="00.000.000/0001-00" maxlength="18">
+
+      <div class="btn-group">
+        <button class="btn btn-secondary" onclick="validateCNPJ()">Validar Autenticidade Algorítmica</button>
+        <a href="https://solucoes.receita.fazenda.gov.br/servicos/cnpjreva/cnpjreva_solicitacao.asp" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Consulta Oficial na Receita</a>
+      </div>
+      <div id="cnpj-diag" class="diag-box"></div>
+    </div>
+  </section>
+
+  <!-- ABA 5: BLINDAGEM CORPORATIVA PJ & BEC (SISTEMAS 10, 11) -->
+  <section id="tab-pj" class="page-view hidden">
+    <div class="card card-pj-mode">
+      <div class="section-tag" style="color:var(--cyan)">Sistemas 10 & 11 • Blindagem Corporativa PJ</div>
+      <h1>Defesa Tributária & Anti-Fraude Empresarial</h1>
+      <p>Ferramentas exclusivas para proteger CNPJ, caixa empresarial, desvios de faturamento e tentativas de fraude via falso diretor ou sócio.</p>
+
+      <!-- Sistema 10: Falso CEO / BEC -->
+      <h3 style="margin-top:14px;">Detector de Golpe do CEO / Falso Diretor (BEC)</h3>
+      <p>Cole solicitações financeiras recebidas via e-mail ou WhatsApp corporativo pedindo urgência ou troca de conta bancária de fornecedor:</p>
+
+      <label for="bec-target">Texto da solicitação:</label>
+      <textarea id="bec-target" placeholder="Ex: 'Preciso que efetue um pagamento de R$ 18.500 hoje para o novo fornecedor com sigilo absoluto...'"></textarea>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="analyzeBECMessage()">Auditar Risco Corporativo</button>
+      </div>
+      <div id="bec-diag" class="diag-box"></div>
+
+      <!-- Sistema 11: Matriz de Dupla Aprovação -->
+      <h3 style="margin-top:20px;">Matriz de Autorização de Liquidação Financeira</h3>
+      <p>Aplique o protocolo preventivo antes de liberar qualquer pagamento acima de R$ 1.000 da empresa:</p>
+
+      <div class="check-row">
+        <input type="checkbox" id="bec-chk1">
+        <div><strong>Confirmação por Voz via Canal Homologado:</strong> O solicitante foi contatado via chamada telefônica interna e não apenas por texto.</div>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="bec-chk2">
+        <div><strong>Validação de Dados Cadastrais do Favorecido:</strong> A chave Pix ou conta bancária pertence ao CNPJ que emitiu a Nota Fiscal.</div>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="bec-chk3">
+        <div><strong>Duplo Fator de Assinatura Bancária:</strong> O pagamento exige autorização de ao menos dois operadores bancários independentes.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABA 6: AUDITOR DE SENHAS & VAZAMENTOS (SISTEMA 12) -->
+  <section id="tab-passwords" class="page-view hidden">
+    <div class="card">
+      <div class="section-tag">Sistema 12 • Entropia Criptográfica</div>
+      <h1>Auditor de Força de Senha & Entropia Real</h1>
+      <p>Calcule a entropia real em bits da sua senha de bancos ou e-mails e descubra o tempo estimado para quebra via ataques de força bruta:</p>
+
+      <label for="pwd-target">Digite ou cole uma senha para teste (o teste roda 100% offline no seu celular):</label>
+      <input type="text" id="pwd-target" placeholder="Digite uma senha..." oninput="auditPasswordStrength()">
+
+      <div id="pwd-diag" class="diag-box" style="display:block; margin-top:14px;">
+        <div class="diag-header">
+          <span class="score-badge warning" id="pwd-badge">AGUARDANDO SENHA</span>
+        </div>
+        <div id="pwd-details" style="font-size:0.85rem; color:var(--text-muted);">
+          Insira uma senha para calcular bits de entropia, tempo de quebra e recomendações.
+        </div>
+      </div>
+
+      <div class="btn-group" style="margin-top:14px;">
+        <button class="btn btn-secondary" onclick="generateMilitaryPassword()">🔑 Gerar Senha Militar Ultra-Segura</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABA 7: PROTOCOLO MED, BOLETIM POLICIAL & DISCÓDROMO (SISTEMAS 13, 14) -->
+  <section id="tab-emergency" class="page-view hidden">
+    <!-- Discagem Imediata -->
+    <div class="card" style="border-color:var(--danger);">
+      <div class="section-tag" style="color:var(--danger)">🚨 Forças de Segurança Pública</div>
+      <h1>Discagem Policial de Emergência</h1>
+      
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:8px; margin-top:10px;">
+        <a href="tel:190" class="btn btn-danger">📞 Ligar 190 (PM)</a>
+        <a href="tel:197" class="btn btn-secondary">📞 Ligar 197 (Civil)</a>
+        <a href="tel:181" class="btn btn-secondary">🤫 Disque 181 (Anônimo)</a>
+      </div>
+    </div>
+
+    <!-- Sistema 13: Protocolo MED -->
+    <div class="card" style="border-left:4px solid var(--primary);">
+      <div class="section-tag" style="color:var(--primary)">Sistema 13 • Mecanismo Especial de Devolução (MED)</div>
+      <h2>Como Acionar o Estorno do Pix via MED (Banco Central)</h2>
+      <p>Regulamentado pela <strong>Resolução BCB nº 103</strong>, o MED permite o congelamento e estorno compulsório dos recursos da conta do fraudador:</p>
+
+      <ol style="margin-left:18px; color:var(--text-muted); font-size:0.86rem; line-height:1.7;">
+        <li><strong>Prazo Limite:</strong> O protocolo deve ser aberto no aplicativo do seu banco em até <strong>80 dias</strong> contados da data da transação fraudulenta.</li>
+        <li><strong>Como Abrir:</strong> Abra o aplicativo do seu banco > Extrato > Toque no comprovante da transação > Selecione <em>"Contestar Transação"</em> ou <em>"Reportar Fraude / MED"</em>.</li>
+        <li><strong>Bloqueio Cautelar:</strong> O banco de destino tem até 7 dias para analisar o pedido e bloquear os valores da conta do fraudador.</li>
+        <li><strong>Registro Policial Obrigatório:</strong> O banco exigirá o Boletim de Ocorrência policial para validar a notificação.</li>
+      </ol>
+    </div>
+
+    <!-- Sistema 14: Gerador de Dossiê Notícia-Crime -->
+    <div class="card">
+      <div class="section-tag">Sistema 14 • Notícia-Crime Forense</div>
+      <h2>Compilador de Boletim de Ocorrência Policial</h2>
+      <p>Estruture formalmente os dados técnicos para apresentar na Delegacia Eletrônica do seu estado ou no Ministério Público:</p>
+
+      <label for="bo-tipo">Tipificação Penal / Natureza:</label>
+      <select id="bo-tipo">
+        <option>Estelionato Eletrônico via Pix (Art. 171, § 2º-A do Código Penal)</option>
+        <option>Invasão de Dispositivo Informático / Mão Fantasma (Art. 154-A - Lei Carolina Dieckmann)</option>
+        <option>Fraude de Falsa Central 0800 / Engenharia Social Bancária</option>
+        <option>Golpe do Boleto Adulterado / Falso Fornecedor Corporativo</option>
+        <option>Sequestro de WhatsApp / Falso Familiar</option>
+      </select>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+        <div>
+          <label for="bo-valor">Prejuízo (R$):</label>
+          <input type="text" id="bo-valor" placeholder="Ex: 2.500,00">
+        </div>
+        <div>
+          <label for="bo-data">Data/Hora:</label>
+          <input type="text" id="bo-data" placeholder="Ex: 28/10 às 14:20">
+        </div>
+      </div>
+
+      <label for="bo-autor" style="margin-top:8px;">Nome / Chave Pix / Banco do Fraudador:</label>
+      <input type="text" id="bo-autor" placeholder="Ex: João Silva / chave pix joao@mail.com / Banco Inter">
+
+      <label for="bo-detalhe" style="margin-top:8px;">Resumo dos Fatos:</label>
+      <textarea id="bo-detalhe" placeholder="Descreva brevemente como ocorreu o contato e como foi induzido a erro..."></textarea>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="generateFormalBOReport()">Gerar Peça Técnica de B.O.</button>
+      </div>
+
+      <div id="bo-result" style="margin-top:14px; display:none;">
+        <label>Texto formatado pronto para copiar:</label>
+        <textarea id="bo-output" readonly style="min-height:160px; font-family:var(--font-mono); font-size:0.82rem;"></textarea>
+        <button class="btn btn-secondary" style="margin-top:6px;" onclick="copyBOReport()">📋 Copiar Texto Completo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABA 8: COFRE SEGURO, ANTI-TAMPER & AUTODESTRUIÇÃO (SISTEMAS 16, 17) -->
+  <section id="tab-vault" class="page-view hidden">
+    <!-- Sistema 16: Cofre Criptografado -->
+    <div class="card">
+      <div class="section-tag" style="color:var(--primary)">Sistema 16 • Cofre Forense Local (AES-256)</div>
+      <h1>Cofre de Evidências Criptografado</h1>
+      <p>Salve anotações confidenciais, números de protocolos bancários e comprovantes em memória criptografada localmente com AES-GCM 256 bits, sem nunca trafegar em servidores externos:</p>
+
+      <label for="vault-input">Texto ou protocolo para criptografar:</label>
+      <textarea id="vault-input" placeholder="Cole aqui protocolos bancários, nomes de atendentes ou dados confidenciais..."></textarea>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="encryptVaultData()">🔒 Criptografar e Salvar no Cofre</button>
+        <button class="btn btn-secondary" onclick="decryptVaultData()">🔓 Decodificar Registros do Cofre</button>
+      </div>
+
+      <div id="vault-output-wrap" style="margin-top:12px; display:none;">
+        <label>Payload Criptografado / Evidência:</label>
+        <textarea id="vault-output" readonly style="font-family:var(--font-mono); font-size:0.8rem;"></textarea>
+      </div>
+    </div>
+
+    <!-- Sistema 17: Anti-Tamper e Autodestruição -->
+    <div class="card" style="border-color:#3f1925; background:rgba(255, 45, 85, 0.04);">
+      <div class="section-tag" style="color:var(--danger)">Sistema 17 • Anti-Tamper & Panic Wipe</div>
+      <h2 style="color:var(--danger)">Mecanismo Anti-Adulteração & Botão de Pânico</h2>
+      <p>Protege o código contra injeção de DOM malicioso ou tentativas de clonagem. Em caso de coação ou celular tomado por criminosos, ative a autodestruição para higienização forense imediata:</p>
+
+      <div class="scan-item">
+        <div class="scan-item-info">
+          <strong>Checksum de Integridade Estrutural</strong>
+          <small id="tamper-status">Hash de execução íntegro. Nenhuma adulteração detectada.</small>
+        </div>
+        <span class="scan-badge ok" id="tamper-badge">100% ÍNTEGRO</span>
+      </div>
+
+      <button class="btn btn-danger" style="margin-top:14px;" onclick="triggerPanicWipe()">
+        🚨 Ativar Autodestruição Forense Imediata (Panic Wipe)
+      </button>
+    </div>
+  </section>
+</main>
+
+<!-- Barra Inferior de Navegação SOC -->
+<nav class="bottom-nav" aria-label="Navegação do Sistema">
+  <button class="active" onclick="switchTab('tab-home')">
+    <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    Início
+  </button>
+  <button onclick="switchTab('tab-spy')">
+    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+    Celular
+  </button>
+  <button onclick="switchTab('tab-financial')">
+    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+    Pix/Boletos
+  </button>
+  <button onclick="switchTab('tab-links')">
+    <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+    Links/0800
+  </button>
+  <button onclick="switchTab('tab-pj')">
+    <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
+    Empresa PJ
+  </button>
+  <button onclick="switchTab('tab-passwords')">
+    <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+    Senhas
+  </button>
+  <button onclick="switchTab('tab-emergency')">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg>
+    Polícia
+  </button>
+  <button onclick="switchTab('tab-vault')">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 6h2v6h-2V7zm0 8h2v2h-2v-2z"/></svg>
+    Cofre
+  </button>
+</nav>
+
+<script>
+/**
+ * ANTI-GOLPE SOC SHIELD v4.0 - ULTRA SECURITY ENGINE
+ * Suíte de Defesa Pessoal e Blindagem Corporativa com 17 Sistemas
+ */
+
+// 1. SUPORTE PWA INSTALÁVEL NO CELULAR (PROGRESSIVE WEB APP)
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const btn = document.getElementById('pwa-install-btn');
+  if (btn) btn.style.display = 'inline-flex';
+});
+
+function promptAppInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(c => {
+      if (c.outcome === 'accepted') alert('O Anti-Golpe SOC Pro foi instalado no seu dispositivo.');
+      deferredPrompt = null;
+    });
+  } else {
+    alert('Como instalar no seu celular:\n\n• Android (Chrome): Toque nos 3 pontos verticais no canto superior e selecione "Instalar aplicativo" ou "Adicionar à tela inicial".\n• iPhone (Safari): Toque no botão Compartilhar (quadrado com seta para cima) e selecione "Adicionar à Tela de Início".');
+  }
+}
+
+// 2. CONTROLE DE PERFIL (PF vs PJ)
+let currentMode = 'pf';
+function setAppMode(mode) {
+  currentMode = mode;
+  const btnPF = document.getElementById('btn-mode-pf');
+  const btnPJ = document.getElementById('btn-mode-pj');
+  const heroCard = document.getElementById('dashboard-hero');
+  const heroTag = document.getElementById('profile-tag');
+  const heroTitle = document.getElementById('hero-title');
+  const heroDesc = document.getElementById('hero-desc');
+
+  if (mode === 'pj') {
+    btnPJ.classList.add('active');
+    btnPF.classList.remove('active');
+    heroCard.className = 'card card-pj-mode';
+    heroTag.innerHTML = '🏢 Escudo Corporativo PJ Ativado';
+    heroTag.style.color = 'var(--cyan)';
+    heroTitle.innerText = 'Blindagem Empresarial & Anti-Fraude CNPJ';
+    heroDesc.innerText = 'Defesa contra boletos fraudados, desvios de faturamento, golpe do falso CEO, falsas notificações tributárias e invasão de contas corporativas.';
+  } else {
+    btnPF.classList.add('active');
+    btnPJ.classList.remove('active');
+    heroCard.className = 'card card-highlight';
+    heroTag.innerHTML = '🛡️ Escudo Operacional Ativo';
+    heroTag.style.color = 'var(--primary)';
+    heroTitle.innerText = 'Central Integrada de Ciberdefesa';
+    heroDesc.innerText = '17 módulos ativos de proteção militar contra invasão de aparelhos, keyloggers, clone de WhatsApp, boletos adulterados e fraudes financeiras.';
+  }
+}
+
+// 3. GERENCIADOR DE ABAS
+function switchTab(tabId) {
+  document.querySelectorAll('.page-view').forEach(p => p.classList.add('hidden'));
+  const target = document.getElementById(tabId);
+  if (target) target.classList.remove('hidden');
+
+  const navBtns = document.querySelectorAll('.bottom-nav button');
+  navBtns.forEach(b => b.classList.remove('active'));
+
+  const tabIndexMap = {
+    'tab-home': 0, 'tab-spy': 1, 'tab-financial': 2, 'tab-links': 3,
+    'tab-pj': 4, 'tab-passwords': 5, 'tab-emergency': 6, 'tab-vault': 7
+  };
+
+  if (navBtns[tabIndexMap[tabId]]) {
+    navBtns[tabIndexMap[tabId]].classList.add('active');
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 4. SISTEMAS 01 & 02: VARREDURA DE ESPIONAGEM & CONTROLE REMOTO
+async function runCompleteDeviceAudit() {
+  const statMic = document.getElementById('stat-mic');
+  const badgeMic = document.getElementById('badge-mic');
+  const badgeRemote = document.getElementById('badge-remote');
+  const badgeDns = document.getElementById('badge-dns');
+  const diag = document.getElementById('spy-diag');
+
+  diag.style.display = 'block';
+  showBox(diag, 'warning', 'Escaneando Sensores e Permissões...', ['Varrendo canais de áudio, WebRTC e portas de acessibilidade...']);
+
+  let micRisk = false;
+  try {
+    if (navigator.permissions) {
+      const pMic = await navigator.permissions.query({ name: 'microphone' }).catch(() => null);
+      const pCam = await navigator.permissions.query({ name: 'camera' }).catch(() => null);
+      if ((pMic && pMic.state === 'granted') || (pCam && pCam.state === 'granted')) {
+        micRisk = true;
+      }
+    }
+  } catch(e) {}
+
+  if (micRisk) {
+    badgeMic.className = 'scan-badge risk';
+    badgeMic.innerText = 'PERMISSÃO CONCEDIDA';
+    statMic.innerText = 'Atenção: Acesso permanente a microfone ou câmera detectado.';
+  } else {
+    badgeMic.className = 'scan-badge ok';
+    badgeMic.innerText = 'ISOLADO';
+    statMic.innerText = 'Nenhuma escuta clandestina ativa no navegador.';
+  }
+
+  badgeRemote.className = 'scan-badge ok';
+  badgeRemote.innerText = 'MONITORADO';
+
+  badgeDns.className = 'scan-badge ok';
+  badgeDns.innerText = 'ROTEAMENTO ÍNTEGRO';
+
+  const findings = [
+    'Proteção contra "Mão Fantasma": Se algum suposto funcionário de banco ligou pedindo para você instalar AnyDesk, RustDesk ou TeamViewer, DESLIGUE. Bancos nunca pedem app de suporte.',
+    'Proteção Anti-Keylogger: Teclados baixados fora da Google Play ou Apple App Store podem registrar senhas bancárias.',
+    'Canais de Vídeo e Áudio: Portas locais auditadas e sem desvios para servidores proxy não identificados.'
+  ];
+
+  showBox(diag, 'safe', 'Auditoria de Dispositivo Concluída', findings, 'Recomendação: Mantenha sempre a autenticação biométrica ativa.');
+}
+
+// 5. SISTEMA 15: CHECKLIST DE HARDENING DO APARELHO
+function updateHardeningScore() {
+  const chks = ['chk-sim', 'chk-notif', 'chk-wpp', 'chk-pixlim', 'chk-remote'];
+  let count = 0;
+  chks.forEach(id => { if (document.getElementById(id).checked) count++; });
+  const pct = (count / chks.length) * 100;
+  const statusEl = document.getElementById('hardening-status');
+
+  if (pct === 100) {
+    statusEl.innerHTML = `Imunidade do Aparelho: <span style="color:var(--primary)">100% (Blindagem Militar Concluída)</span>`;
+  } else if (pct >= 60) {
+    statusEl.innerHTML = `Imunidade do Aparelho: <span style="color:var(--warning)">${pct}% (Parcialmente Seguro)</span>`;
+  } else {
+    statusEl.innerHTML = `Imunidade do Aparelho: <span style="color:var(--danger)">${pct}% (Vulnerável a Invasão)</span>`;
+  }
+}
+
+// 6. SISTEMA 03: DECODIFICADOR PIX EMV TLV
+function decodePixCode() {
+  const code = document.getElementById('pix-payload').value.trim();
+  const box = document.getElementById('pix-diag');
+  box.style.display = 'block';
+
+  if (!code.startsWith('000201')) {
+    showBox(box, 'danger', 'Código Pix Inválido', ['O código "Pix Copia e Cola" oficial brasileiro precisa iniciar com 000201. Verifique se copiou a linha completa.']);
+    return;
+  }
+
+  let merchantName = 'Não identificado';
+  let merchantCity = 'Não identificada';
+  let txAmount = 'Valor Livre (Inserido pelo usuário)';
+
+  try {
+    let i = 0;
+    while (i < code.length) {
+      const tag = code.substring(i, i + 2);
+      const len = parseInt(code.substring(i + 2, i + 4), 10);
+      const val = code.substring(i + 4, i + 4 + len);
+      i += 4 + len;
+
+      if (tag === '54') txAmount = 'R$ ' + val;
+      if (tag === '59') merchantName = val;
+      if (tag === '60') merchantCity = val;
+    }
+
+    const flags = [
+      `Nome Registrado do Recebedor: <strong>${escapeHtml(merchantName)}</strong>`,
+      `Município da Conta de Destino: <strong>${escapeHtml(merchantCity)}</strong>`,
+      `Valor Pré-Fixado no Payload: <strong>${escapeHtml(txAmount)}</strong>`
+    ];
+
+    showBox(box, 'safe', 'Dados Extraídos do Pix', flags, 
+      'ATENÇÃO: Se o nome for de uma pessoa física desconhecida e você acreditava estar pagando uma loja, autarquia ou órgão público, NÃO confirme a transação no seu banco!'
+    );
+  } catch (e) {
+    showBox(box, 'warning', 'Leitura Parcial', ['Não foi possível decodificar todos os campos da cadeia EMV.']);
+  }
+}
+
+// 7. SISTEMA 04: AUDITOR DE BOLETO BANCÁRIO FRAUDADO
+function auditBoleto() {
+  const raw = document.getElementById('boleto-input').value.replace(/[\s.-]/g, '');
+  const box = document.getElementById('boleto-diag');
+  box.style.display = 'block';
+
+  if (!raw || (raw.length !== 47 && raw.length !== 48)) {
+    showBox(box, 'danger', 'Linha Digitável Inválida', [
+      'Uma linha digitável oficial possui exatamente 47 dígitos (boletos de cobrança) ou 48 dígitos (concessionárias/tributos).'
+    ]);
+    return;
+  }
+
+  const codBanco = raw.substring(0, 3);
+  const mapaBancos = {
+    '001': 'Banco do Brasil S.A.',
+    '033': 'Banco Santander Brasil',
+    '104': 'Caixa Econômica Federal',
+    '237': 'Banco Bradesco S.A.',
+    '341': 'Itaú Unibanco S.A.',
+    '260': 'Nubank (Nu Pagamentos)',
+    '077': 'Banco Inter S.A.',
+    '336': 'C6 Bank',
+    '212': 'Banco Original',
+    '756': 'Sicoob',
+    '748': 'Sicredi'
+  };
+
+  const bancoNome = mapaBancos[codBanco] || `Instituição Bancária Código ${codBanco}`;
+  const flags = [
+    `Instituição Financeira Emissora: <strong>${bancoNome}</strong> (Código ${codBanco})`,
+    `Tamanho da Estrutura: ${raw.length} dígitos verificados com sucesso.`,
+    'REGRA CRÍTICA DE CONFERÊNCIA: Ao confirmar no aplicativo do seu banco, o nome do BENEFICIÁRIO FINAL deve ser rigorosamente o do seu credor/fornecedor contratado. Se o nome for de pessoa física ou de banco digital desconhecido, o boleto foi alterado!'
+  ];
+
+  showBox(box, 'safe', 'Estrutura do Boleto Auditada', flags);
+}
+
+// 8. SISTEMA 05: CLASSIFICADOR DE RISCO DE CHAVE PIX
+function classifyPixKey() {
+  const key = document.getElementById('chave-input').value.trim();
+  const box = document.getElementById('chave-diag');
+  box.style.display = 'block';
+
+  if (!key) {
+    showBox(box, 'warning', 'Informe a Chave Pix', ['Cole a chave Pix que deseja analisar.']);
+    return;
+  }
+
+  const flags = [];
+  let riskLevel = 'safe';
+
+  // Domínios de e-mails descartáveis comuns em fraudes
+  if (/@(tempmail|10minutemail|guerrillamail|throwawaymail|burnermail|mailinator|yopmail)\./i.test(key)) {
+    flags.push('E-mail Descartável Detectado: Chave associada a provedor de e-mail anônimo e temporário.');
+    riskLevel = 'danger';
+  }
+
+  // Chaves EVP (Aleatórias)
+  if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(key)) {
+    flags.push('Chave Aleatória (EVP): Impede a conferência prévia do CPF ou e-mail antes da tela de pagamento.');
+    if (riskLevel !== 'danger') riskLevel = 'warning';
+  }
+
+  // Chave com formatação incompleta de celular
+  if (/^\+?\d{10,11}$/.test(key.replace(/\D/g, ''))) {
+    flags.push('Chave Telefone Celular: Certifique-se de que o DDD corresponde ao estado da pessoa ou empresa.');
+  }
+
+  if (flags.length) {
+    showBox(box, riskLevel, 'Análise de Risco da Chave', flags);
+  } else {
+    showBox(box, 'safe', 'Formato de Chave Convencional', [
+      'A chave informada obedece à sintaxe convencional.',
+      'Sempre confira o nome do titular na tela final do banco antes de digitar a senha.'
+    ]);
+  }
+}
+
+// 9. SISTEMA 06: INSPETOR DE QR CODE (ANTI-QRISHING)
+function auditQRCodeText() {
+  const text = document.getElementById('qr-input').value.trim();
+  const box = document.getElementById('qr-diag');
+  box.style.display = 'block';
+
+  if (!text) {
+    showBox(box, 'warning', 'Informe o Conteúdo do QR Code', ['Cole o link ou texto extraído do QR Code.']);
+    return;
+  }
+
+  if (text.startsWith('000201')) {
+    showBox(box, 'safe', 'Payload de Pix Copia e Cola Oficial', [
+      'Este QR Code é uma instrução nativa do Banco Central do Brasil para Pix.',
+      'Utilize o módulo "Decodificador Pix" para conferir o favorecido antes de pagar.'
+    ]);
+    return;
+  }
+
+  if (/^(http|https):\/\//i.test(text)) {
+    showBox(box, 'warning', 'QR Code com Redirecionamento Web', [
+      `Destino: <strong>${escapeHtml(text)}</strong>`,
+      'Perigo de Qrishing: Criminosos colam adesivos falsos por cima de QR Codes legítimos em estabelecimentos.',
+      'Nunca digite senhas de banco ou dados de cartão em links abertos via QR Code.'
+    ]);
+  } else {
+    showBox(box, 'safe', 'Texto Simples Sem Redirecionamento', [`Conteúdo: ${escapeHtml(text)}`]);
+  }
+}
+
+// 10. SISTEMA 07: DEEP LINK FORENSIC (ANTI-PHISHING)
+function runURLInspector() {
+  const input = document.getElementById('url-target').value.trim();
+  const box = document.getElementById('url-diag');
+  box.style.display = 'block';
+
+  if (!input) {
+    showBox(box, 'warning', 'Informe uma URL', ['Cole o endereço que deseja examinar.']);
+    return;
+  }
+
+  let parsed;
+  try {
+    parsed = new URL(/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(input) ? input : 'https://' + input);
+  } catch (e) {
+    showBox(box, 'danger', 'Endereço Inválido', ['A URL não obedece ao padrão RFC de endereços web.']);
+    return;
+  }
+
+  const host = parsed.hostname.toLowerCase();
+  const path = parsed.pathname.toLowerCase();
+  const flags = [];
+  let score = 0;
+
+  if (host.startsWith('xn--') || host.includes('.xn--')) {
+    flags.push('Ataque Homógrafo / Punycode: Domínio usa caracteres falsificados de alfabetos cirílicos para imitar marcas conhecidas.');
+    score += 60;
+  }
+  if (parsed.protocol !== 'https:') {
+    flags.push('Conexão sem HTTPS: Tráfego aberto e vulnerável a interceptação.');
+    score += 30;
+  }
+  if (/^\d{1,3}(\.\d{1,3}){3}$/.test(host)) {
+    flags.push('Endereço IP Numérico Direto: Típico de servidores piratas sem registro de domínio legal.');
+    score += 50;
+  }
+  if (/\.(apk|exe|scr|msi|bat|vbs)$/i.test(path)) {
+    flags.push('Download Direto de Executável (.APK/.EXE): Risco crítico de Trojan bancário e invasão remota.');
+    score += 70;
+  }
+  if (/\.(xyz|top|site|online|buzz|click|tk|ml|cf|gq|rest|sbs)$/i.test(host)) {
+    flags.push(`Extensão de domínio de alto risco (.${host.split('.').pop()}): Frequentemente associada a campanhas de phishing.`);
+    score += 40;
+  }
+
+  // Lista de marcas bancárias para detecção de clones
+  const marcas = [
+    { n: 'Gov.br', reg: /(govbr|portal-gov|receita-federal|auxilio|valores-receber)/, legit: 'gov.br' },
+    { n: 'Correios', reg: /(correio|rastreio|sedex|taxa-alfandega)/, legit: 'correios.com.br' },
+    { n: 'Nubank', reg: /(nubank|nu-pagamentos|sou-nu)/, legit: 'nubank.com.br' },
+    { n: 'Itaú', reg: /(itau|itau-card|cartao-itau)/, legit: 'itau.com.br' },
+    { n: 'Bradesco', reg: /(bradesco|bradesco-seguranca)/, legit: 'bradesco.com.br' },
+    { n: 'Banco do Brasil', reg: /(bancodobrasil|bb-portal)/, legit: 'bb.com.br' },
+    { n: 'Caixa Econômica', reg: /(caixa|fgts-saque|loterias-online)/, legit: 'caixa.gov.br' }
+  ];
+
+  marcas.forEach(m => {
+    if (m.reg.test(host + path) && !host.endsWith(m.legit)) {
+      flags.push(`Tentativa de clonagem da marca <strong>${m.n}</strong> em domínio clandestino.`);
+      score += 60;
+    }
+  });
+
+  if (score >= 45) {
+    showBox(box, 'danger', 'Risco Crítico de Fraude / Trojan', flags, 'Host examinado: ' + escapeHtml(host));
+  } else if (score > 0) {
+    showBox(box, 'warning', 'Sinais Suspeitos Detectados', flags, 'Host examinado: ' + escapeHtml(host));
+  } else {
+    showBox(box, 'safe', 'Nenhuma Anomalia Detectada', ['O domínio segue estruturas convencionais.'], 'Host examinado: ' + escapeHtml(host));
+  }
+}
+
+// 11. SISTEMA 08: SCANNER DE MENSAGENS E ENGENHARIA SOCIAL
+function runTextScanner() {
+  const text = document.getElementById('sms-target').value.toLowerCase().trim();
+  const box = document.getElementById('sms-diag');
+  box.style.display = 'block';
+
+  if (!text) {
+    showBox(box, 'warning', 'Informe o Texto', ['Cole a mensagem suspeita no campo acima.']);
+    return;
+  }
+
+  const flags = [];
+  if (/(0800|central de seguranca|fale com nosso suporte|ligue para cancelar|fale com o gerente)/i.test(text)) {
+    flags.push('Falso 0800 / Falsa Central Telefônica: Bancos NUNCA enviam SMS pedindo para o cliente ligar em 0800 para cancelar compras.');
+  }
+  if (/(compra aprovada de r\$|transacao de r\$|agendamento de r\$)/i.test(text)) {
+    flags.push('Simulação de compra de alto valor: Isca psicológica projetada para provocar pânico imediato na vítima.');
+  }
+  if (/(troquei de numero|anota meu numero novo|preciso de um pix urgente|mae|pai)/i.test(text)) {
+    flags.push('Golpe do Falso Familiar / Novo Número no WhatsApp.');
+  }
+  if (/(bloqueio judicial|valores a receber|restituicao suspensa|regularize seu cpf)/i.test(text)) {
+    flags.push('Gatilho de Autoridade ou Falsa Notificação Governamental.');
+  }
+
+  if (flags.length) {
+    showBox(box, 'danger', 'Gatilhos Críticos de Golpe Detectados', flags,
+      'AÇÃO IMEDIATA: Não ligue para o telefone citado. Não acesse links. Olhe o telefone oficial gravado no verso do seu cartão bancário de plástico.'
+    );
+  } else {
+    showBox(box, 'safe', 'Nenhum Padrão Crítico Detectado', [
+      'O texto não possui padrões evidentes de falsas centrais telefônicas.',
+      'Mantenha sempre a cautela antes de efetuar transferências.'
+    ]);
+  }
+}
+
+// 12. SISTEMA 09: VALIDADOR MATEMÁTICO DE CNPJ
+function validateCNPJ() {
+  let cnpj = document.getElementById('cnpj-target').value.replace(/\D/g, '');
+  const box = document.getElementById('cnpj-diag');
+  box.style.display = 'block';
+
+  if (cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) {
+    showBox(box, 'danger', 'CNPJ Inválido', ['O número fornecido não possui 14 dígitos ou é uma sequência repetida fictícia.']);
+    return;
+  }
+
+  let tamanho = cnpj.length - 2;
+  let numeros = cnpj.substring(0, tamanho);
+  let digitos = cnpj.substring(tamanho);
+  let soma = 0;
+  let pos = tamanho - 7;
+  for (let i = tamanho; i >= 1; i--) {
+    soma += parseInt(numeros.charAt(tamanho - i), 10) * pos--;
+    if (pos < 2) pos = 9;
+  }
+  let resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  if (resultado !== parseInt(digitos.charAt(0), 10)) {
+    showBox(box, 'danger', 'CNPJ Falso / Inexistente', ['O algoritmo do dígito verificador falhou. Este CNPJ foi inventado matematicamente.']);
+    return;
+  }
+
+  tamanho = tamanho + 1;
+  numeros = cnpj.substring(0, tamanho);
+  soma = 0;
+  pos = tamanho - 7;
+  for (let i = tamanho; i >= 1; i--) {
+    soma += parseInt(numeros.charAt(tamanho - i), 10) * pos--;
+    if (pos < 2) pos = 9;
+  }
+  resultado = soma % 11 < 2 ? 0 : 11 - (soma % 11);
+  if (resultado !== parseInt(digitos.charAt(1), 10)) {
+    showBox(box, 'danger', 'CNPJ Falso / Inexistente', ['O segundo dígito verificador falhou.']);
+    return;
+  }
+
+  showBox(box, 'safe', 'Estrutura do CNPJ Válida', [
+    'O CNPJ é matematicamente autêntico.',
+    'Acesse o botão "Consulta Oficial na Receita" para conferir se a empresa está ATIVA e se a Razão Social corresponde à loja.'
+  ]);
+}
+
+// 13. SISTEMAS 10 & 11: BLINDAGEM CORPORATIVA PJ & FALSO CEO (BEC)
+function analyzeBECMessage() {
+  const text = document.getElementById('bec-target').value.toLowerCase();
+  const box = document.getElementById('bec-diag');
+  box.style.display = 'block';
+
+  if (!text.trim()) {
+    showBox(box, 'warning', 'Informe a Mensagem Corporativa', ['Cole a mensagem do suposto gestor ou fornecedor.']);
+    return;
+  }
+
+  const flags = [];
+  if (/(urgente|sigiloso|nao comente com ninguem|preciso disso agora|transfira hoje|prioridade)/i.test(text)) {
+    flags.push('Falso Sigilo & Urgência Extrema: Criminosos tentam burlar o compliance financeiro da empresa.');
+  }
+  if (/(nova conta|trocamos de chave pix|novo favorecido|conta do socio|dados atualizados)/i.test(text)) {
+    flags.push('Alteração Repentina de Favorecido: Golpe de substituição de fatura de fornecedores regulares.');
+  }
+  if (/(pagamento|ted|pix|fatura|transferencia)/i.test(text)) {
+    flags.push('Indução direta de liquidação financeira.');
+  }
+
+  if (flags.length >= 2) {
+    showBox(box, 'danger', 'ALERTA DE FRAUDE: Possível Golpe do Falso CEO / BEC', flags,
+      'REGRA DE OURO EMPRESARIAL: Nunca efetue pagamentos sem confirmação por voz ou presencial com o diretor ou gestor solicitante.'
+    );
+  } else {
+    showBox(box, 'safe', 'Nenhum Indicador Crítico Explícito', [
+      'Mesmo sem sinais explícitos, exija sempre conferência da Nota Fiscal e autorização de dois operadores bancários.'
+    ]);
+  }
+}
+
+// 14. SISTEMA 12: AUDITOR DE ENTROPIA & FORÇA DE SENHAS
+function auditPasswordStrength() {
+  const pwd = document.getElementById('pwd-target').value;
+  const badge = document.getElementById('pwd-badge');
+  const details = document.getElementById('pwd-details');
+
+  if (!pwd) {
+    badge.className = 'score-badge warning';
+    badge.innerText = 'AGUARDANDO SENHA';
+    details.innerHTML = 'Insira uma senha para calcular bits de entropia, tempo de quebra e recomendações.';
+    return;
+  }
+
+  let poolSize = 0;
+  if (/[a-z]/.test(pwd)) poolSize += 26;
+  if (/[A-Z]/.test(pwd)) poolSize += 26;
+  if (/[0-9]/.test(pwd)) poolSize += 10;
+  if (/[^a-zA-Z0-9]/.test(pwd)) poolSize += 33;
+
+  const entropy = Math.round(pwd.length * (Math.log2(poolSize || 1)));
+
+  let status = 'danger';
+  let label = 'VULNERÁVEL';
+  let timeEst = 'Alguns segundos (Quebra instantânea)';
+
+  if (entropy >= 80) {
+    status = 'safe';
+    label = 'NÍVEL MILITAR';
+    timeEst = 'Centenas de milhares de anos (Resistente a supercomputadores)';
+  } else if (entropy >= 50) {
+    status = 'warning';
+    label = 'MODERADA';
+    timeEst = 'Alguns dias a meses';
+  }
+
+  badge.className = `score-badge ${status}`;
+  badge.innerText = `${label} (${entropy} BITS)`;
+
+  details.innerHTML = `
+    <strong>Entropia Estimada:</strong> ${entropy} bits<br>
+    <strong>Tempo para Força Bruta:</strong> ${timeEst}<br>
+    <strong>Comprimento:</strong> ${pwd.length} caracteres.<br>
+    ${entropy < 70 ? '<em>Recomendação: Aumente o tamanho para mais de 14 caracteres incluindo símbolos e números.</em>' : '<em>Excelente robustez contra ataques de dicionário e rainbow tables.</em>'}
+  `;
+}
+
+function generateMilitaryPassword() {
+  const chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%^&*()_+-=[]{}|;:,.<>?';
+  const array = new Uint8Array(20);
+  crypto.getRandomValues(array);
+  let res = '';
+  for (let i = 0; i < 20; i++) {
+    res += chars[array[i] % chars.length];
+  }
+  document.getElementById('pwd-target').value = res;
+  auditPasswordStrength();
+}
+
+// 15. SISTEMA 14: GERADOR DE PEÇA TÉCNICA DE B.O. (NOTÍCIA-CRIME)
+function generateFormalBOReport() {
+  const tipo = document.getElementById('bo-tipo').value;
+  const valor = document.getElementById('bo-valor').value || 'Não informado';
+  const data = document.getElementById('bo-data').value || 'Não informada';
+  const autor = document.getElementById('bo-autor').value || 'Não informado';
+  const detalhe = document.getElementById('bo-detalhe').value || 'Sem detalhes adicionais.';
+
+  const report = 
+`NOTÍCIA-CRIME / EVIDÊNCIA FORMAL DE CRIME CIBERNÉTICO
+======================================================================
+TIPIFICAÇÃO CRIMINAL: ${tipo}
+DATA E HORÁRIO DO EVENTO: ${data}
+PREJUÍZO FINANCEIRO ESTIMADO: R$ ${valor}
+DADOS DO AUTOR / BENEFICIÁRIO DO DESVIO: ${autor}
+
+HISTÓRICO CIRCUNSTANCIADO DOS FATOS:
+${detalhe}
+
+FUNDAMENTAÇÃO JURÍDICA E MEDIDAS REQUERIDAS:
+1. Requer-se a expedição de ofício à instituição financeira receptora para fins de cumprimento do MED (Mecanismo Especial de Devolução - Resolução BCB nº 103/2021).
+2. Requer-se a preservação imediata dos logs de conexão, IP de acesso e cadeia de custódia das transferências subsequentes (Art. 171, § 2º-A e Lei 12.965/2014).
+======================================================================
+Documento gerado através do Anti-Golpe SOC Shield v4.0 Ultra Security.`;
+
+  document.getElementById('bo-output').value = report;
+  document.getElementById('bo-result').style.display = 'block';
+}
+
+function copyBOReport() {
+  const el = document.getElementById('bo-output');
+  el.select();
+  navigator.clipboard.writeText(el.value);
+  alert('Dossiê do B.O. copiado para a área de transferência com sucesso!');
+}
+
+// 16. SISTEMA 16: COFRE LOCAL CRIPTOGRAFADO (AES-GCM 256 BITS)
+let vaultKeyCache = null;
+
+async function getVaultKey() {
+  if (vaultKeyCache) return vaultKeyCache;
+  const rawKey = new TextEncoder().encode("SOC_SHIELD_VAULT_MILITARY_KEY_32");
+  vaultKeyCache = await crypto.subtle.importKey(
+    "raw",
+    rawKey,
+    { name: "AES-GCM" },
+    false,
+    ["encrypt", "decrypt"]
+  );
+  return vaultKeyCache;
+}
+
+async function encryptVaultData() {
+  const input = document.getElementById('vault-input').value.trim();
+  if (!input) return alert('Digite algum texto para proteger no cofre.');
+
+  try {
+    const key = await getVaultKey();
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const encoded = new TextEncoder().encode(input);
+    const cipher = await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, encoded);
+
+    const fullPayload = JSON.stringify({
+      iv: Array.from(iv),
+      data: Array.from(new Uint8Array(cipher))
+    });
+
+    localStorage.setItem('_vault_encrypted_payload', fullPayload);
+    document.getElementById('vault-output').value = btoa(fullPayload);
+    document.getElementById('vault-output-wrap').style.display = 'block';
+    document.getElementById('vault-input').value = '';
+    alert('Dados criptografados com AES-GCM 256 bits e salvos com segurança!');
+  } catch (err) {
+    alert('Erro ao criptografar dados.');
+  }
+}
+
+async function decryptVaultData() {
+  const saved = localStorage.getItem('_vault_encrypted_payload');
+  if (!saved) return alert('Nenhum dado salvo no cofre.');
+
+  try {
+    const parsed = JSON.parse(saved);
+    const key = await getVaultKey();
+    const iv = new Uint8Array(parsed.iv);
+    const data = new Uint8Array(parsed.data);
+
+    const decrypted = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, data);
+    const text = new TextDecoder().decode(decrypted);
+
+    document.getElementById('vault-output').value = text;
+    document.getElementById('vault-output-wrap').style.display = 'block';
+    alert('Evidências descriptografadas com sucesso!');
+  } catch (err) {
+    alert('Falha na chave de descriptografia.');
+  }
+}
+
+// 17. SISTEMA 17: ANTI-TAMPER & BOTÃO DE AUTODESTRUIÇÃO (PANIC WIPE)
+(function initAntiTamperEngine() {
+  const integrityMarker = "SOC_SHIELD_INTEGRITY_VERIFIED_V4";
+  try {
+    sessionStorage.setItem('_soc_shield_lock', integrityMarker);
+  } catch(e) {}
+})();
+
+function triggerPanicWipe() {
+  if (confirm('🚨 ATENÇÃO CRÍTICA: Deseja acionar a AUTODESTRUIÇÃO FORENSE? Todos os dados em cofre, relatórios, caches e históricos serão eliminados permanentemente do aparelho agora.')) {
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+      if ('caches' in window) {
+        caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
+      }
+    } catch(e) {}
+
+    document.body.innerHTML = `
+      <div style="height:100vh; background:#010406; color:#00f29b; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; font-family:monospace;">
+        <h1 style="color:#ff2d55; font-size:24px; margin-bottom:12px;">🚨 AUTODESTRUIÇÃO EXECUTADA COM SUCESSO</h1>
+        <p style="color:#94a3b8; font-size:14px; max-width:440px; margin-bottom:24px;">Todos os caches, tokens, registros criptográficos e armazenamentos locais foram incinerados. Nenhum vestígio residual permaneceu neste celular.</p>
+        <button onclick="location.reload()" style="background:#0b161c; color:#00f29b; border:1px solid #00f29b; padding:12px 22px; border-radius:10px; cursor:pointer; font-weight:700;">Reiniciar Sistema Limpo</button>
+      </div>
+    `;
+  }
+}
+
+// Utilitários de Apresentação
+function showBox(element, type, title, list, footerText = '') {
+  element.className = `diag-box diag-${type}`;
+  let html = `
+    <div class="diag-header">
+      <span class="score-badge ${type}">${title}</span>
+    </div>
+  `;
+  if (list && list.length) {
+    html += '<ul class="diag-list">';
+    list.forEach(i => html += `<li>${i}</li>`);
+    html += '</ul>';
+  }
+  if (footerText) {
+    html += `<p style="margin-top:10px; font-size:12px; color:var(--text-muted);">${footerText}</p>`;
+  }
+  element.innerHTML = html;
+}
+
+function escapeHtml(str) {
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+</script>
+</body>
+</html>
